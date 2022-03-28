@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 const errHandle = require('./errorHandle');
 const todos = [];
 const getTodo = require('./getTodo');
+const { deleteOne, deleteAll} = require('./deleteTodo')
 
 const requestListener = (req, res)=>{
     const headers = {
@@ -24,8 +25,10 @@ const requestListener = (req, res)=>{
         // postTodo.js
     }else if(req.url=="/todos" && req.method == "DELETE"){
         // deleteTodo.js
+        deleteAll(res,todos)
     }else if(req.url.startsWith("/todos/") && req.method=="DELETE"){
         // deleteTodo.js
+        deleteOne(res,req,todos)
     }else if(req.url.startsWith("/todos/") && req.method=="PATCH"){
         // patchTodo.js
     }else if(req.method == "OPTIONS"){
