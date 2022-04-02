@@ -1,8 +1,8 @@
-const errorHandle = require('./errorHandle');
+// const errorHandle = require('./errorHandle');
 const { v4: uuidv4 } = require('uuid');
 const headers = require('./headers');
 
-function postTodo(res, body, todos) {
+function postTodo(res, body, todos, errHandle) {
   try {
     const data = JSON.parse(body);
     if (!data.title) {
@@ -24,7 +24,7 @@ function postTodo(res, body, todos) {
       res.end();
     }
   } catch (err) {
-    errorHandle(res, 400, 'data formart not correct or title is required');
+    errHandle(res, 400, 'data formart not correct or title is required');
   }
 }
 

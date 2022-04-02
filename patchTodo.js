@@ -1,7 +1,7 @@
 const headers = require('./headers');
-const errorHandle = require('./errorHandle');
+// const errorHandle = require('./errorHandle');
 
-function patchTodo(res, req, body, todos) {
+function patchTodo(res, req, body, todos, errHandle) {
   const id = req.url.split('/').pop();
   const index = todos.findIndex(item => item.id === id);
 
@@ -20,7 +20,7 @@ function patchTodo(res, req, body, todos) {
     res.write(JSON.stringify({ status: 'success', data }));
     res.end();
   } catch (error) {
-    errorHandle(res, 404, error.message);
+    errHandle(res, 404, error.message);
   }
 }
 
