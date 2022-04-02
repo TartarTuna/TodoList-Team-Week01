@@ -4,6 +4,7 @@ const errHandle = require('./errorHandle');
 const todos = [];
 const getTodo = require('./getTodo');
 const { deleteOne, deleteAll} = require('./deleteTodo')
+const patchTodo = require('./patchTodo');
 
 const requestListener = (req, res)=>{
     const headers = {
@@ -30,7 +31,10 @@ const requestListener = (req, res)=>{
         // deleteTodo.js
         deleteOne(res,req,todos)
     }else if(req.url.startsWith("/todos/") && req.method=="PATCH"){
-        // patchTodo.js
+        req.on('end', () => {
+          patchTodo(res, req, body, todos);
+        });
+        //  patchTodo.js
     }else if(req.method == "OPTIONS"){
         res.writeHead(200,headers);
         res.end();
